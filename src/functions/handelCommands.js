@@ -2,9 +2,7 @@ const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 const fs = require("fs");
 require("dotenv").config();
-
 const clientId = process.env.clientID;
-const guildId = process.env.guildID;
 
 module.exports = (client) => {
   client.handleCommands = async (commandFolders, path) => {
