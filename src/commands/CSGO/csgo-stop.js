@@ -4,17 +4,17 @@ const wait = require("timers/promises").setTimeout;
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("csgosalad-restart")
-    .setDescription("[Salad] Send a restart command to Fruity CS:GO server"),
+    .setName("csgo-stop")
+    .setDescription("Send a STOP command to Fruity CS:GO server"),
 
   async execute(interaction) {
     try {
       await interaction.reply({
-        content: `Restarting: Fruity CS:GO`,
+        content: `Stopping: Fruity CS:GO`,
         ephemeral: true,
       });
       exec(
-        "sudo -iu csgo-salad-1 /home/csgo-salad-1/csgoserver restart",
+        "sudo -iu csgo-salad-1 /home/csgo-salad-1/csgoserver stop",
         async (error, stdout, stderr) => {
           await wait(5000);
           if (!interaction) return;
@@ -31,7 +31,7 @@ module.exports = {
             });
           }
           return await interaction.editReply({
-            content: `Restarted: Fruity CS:GO`,
+            content: `Stopped: Fruity CS:GO`,
             ephemeral: true,
           });
         }

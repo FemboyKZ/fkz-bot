@@ -4,8 +4,8 @@ const wait = require("timers/promises").setTimeout;
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("csgosalad-start")
-    .setDescription("[Salad] Send a start command to Fruity CS:GO server"),
+    .setName("csgo-start")
+    .setDescription("Send a START command to Fruity CS:GO server"),
 
   async execute(interaction) {
     try {
