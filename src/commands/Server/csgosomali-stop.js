@@ -4,10 +4,8 @@ const wait = require("timers/promises").setTimeout;
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("csgosomali-stop")
-    .setDescription(
-      "[Pirate] Send a STOP command to a Somali Pirates CS:GO server"
-    )
+    .setName("stop")
+    .setDescription("Send a STOP command to a Somali Pirates CS:GO server")
     .addStringOption((option) =>
       option
         .setName("server")
