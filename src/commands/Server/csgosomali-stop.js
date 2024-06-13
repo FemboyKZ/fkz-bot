@@ -37,6 +37,15 @@ module.exports = {
         serverName = "Unknown";
     }
 
+    if (
+      !interaction.member.roles.cache.has(`${process.env.PIRATE_MANAGER_ROLE}`)
+    ) {
+      return await interaction.reply({
+        content: "You don't have permission to use this command",
+        ephemeral: true,
+      });
+    }
+
     try {
       await interaction.reply({
         content: `Stopping: ${serverName}`,
