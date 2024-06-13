@@ -2,7 +2,7 @@ const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 const fs = require("fs");
 require("dotenv").config();
-const clientId = process.env.clientID;
+const clientId = process.env.CLIENT_ID;
 
 module.exports = (client) => {
   client.handleCommands = async (commandFolders, path) => {
@@ -20,7 +20,7 @@ module.exports = (client) => {
 
     const rest = new REST({
       version: "9",
-    }).setToken(process.env.token);
+    }).setToken(process.env.TOKEN);
 
     (async () => {
       try {

@@ -7,23 +7,10 @@ const {
 const fs = require("fs");
 const client = new Client({
   intents: [
-    GatewayIntentBits.AutoModerationConfiguration,
-    GatewayIntentBits.AutoModerationExecution,
-    GatewayIntentBits.DirectMessageReactions,
-    GatewayIntentBits.DirectMessageTyping,
-    GatewayIntentBits.DirectMessages,
-    GatewayIntentBits.GuildEmojisAndStickers,
-    GatewayIntentBits.GuildIntegrations,
-    GatewayIntentBits.GuildInvites,
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.GuildMessageTyping,
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildModeration,
-    GatewayIntentBits.GuildPresences,
-    GatewayIntentBits.GuildScheduledEvents,
-    GatewayIntentBits.GuildVoiceStates,
-    GatewayIntentBits.GuildWebhooks,
     GatewayIntentBits.Guilds,
     GatewayIntentBits.MessageContent,
   ],
@@ -62,5 +49,5 @@ process.on("unhandledRejection", (reason, promise) => {
   }
   client.handleEvents(eventFiles, "./src/events");
   client.handleCommands(commandFolders, "./src/commands");
-  client.login(process.env.token);
+  client.login(process.env.TOKEN);
 })();
