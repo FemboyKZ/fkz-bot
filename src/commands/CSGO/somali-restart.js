@@ -25,15 +25,17 @@ module.exports = {
     const server = {
       "csgo-somali-1": {
         name: "Somali Pirates 1",
+        user: "csgo-somali-1",
         id: null,
       },
       "csgo-somali-2": {
         name: "Somali Pirates 2",
+        user: "csgo-somali-2",
         id: null,
       },
     }[servers];
 
-    const { name, id } = server;
+    const { name, id, user } = server;
 
     if (
       //!interaction.member.permissions.has(PermissionFlagsBits.Administrator) ||
@@ -51,7 +53,7 @@ module.exports = {
         ephemeral: true,
       });
       exec(
-        `sudo -iu ${servers} /home/${servers}/csgoserver restart`,
+        `sudo -iu ${user} /home/${user}/csgoserver restart`,
         async (error, stdout, stderr) => {
           if (error) console.log(error);
           //if (stderr) console.log(stderr);
