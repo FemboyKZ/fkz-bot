@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const { exec } = require("child_process");
 const wait = require("timers/promises").setTimeout;
+require("dotenv").config();
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -8,6 +9,18 @@ module.exports = {
     .setDescription("Send a STOP command to Fruity CS:GO server"),
 
   async execute(interaction) {
+    /*
+    if (
+      !interaction.member.permissions.has(PermissionFlagsBits.Administrator) ||
+      !interaction.member.roles.cache.has(`${process.env.SALAD_MANAGER_ROLE}`)
+    ) {
+      return await interaction.reply({
+        content: "You don't have perms to use this command.",
+        ephemeral: true,
+      });
+    }
+    */
+
     try {
       await interaction.reply({
         content: `Stopping: Fruity CS:GO`,
@@ -16,20 +29,10 @@ module.exports = {
       exec(
         "sudo -iu csgo-salad-1 /home/csgo-salad-1/csgoserver stop",
         async (error, stdout, stderr) => {
-          await wait(5000);
-          if (!interaction) return;
-          if (error) {
-            return await interaction.editReply({
-              content: `Error: ${error.message}`,
-              ephemeral: true,
-            });
-          }
-          if (stderr) {
-            return await interaction.editReply({
-              content: `Stderr: ${stderr}`,
-              ephemeral: true,
-            });
-          }
+          if (error) console.log(error);
+          //if (stderr) console.log(stderr);
+          //if (stdout) console.log(stdout);
+          await wait(3000);
           return await interaction.editReply({
             content: `Stopped: Fruity CS:GO`,
             ephemeral: true,
