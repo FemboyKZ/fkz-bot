@@ -51,18 +51,18 @@ module.exports = {
         ephemeral: true,
       });
       exec(
-        `sudo -iu ${server} /home/${server}/csgoserver restart`,
+        `sudo -iu ${servers} /home/${servers}/csgoserver restart`,
         async (error, stdout, stderr) => {
           if (error) console.log(error);
           //if (stderr) console.log(stderr);
           //if (stdout) console.log(stdout);
-          await wait(3000);
-          return await interaction.editReply({
-            content: `Restarted: ${name}`,
-            ephemeral: true,
-          });
         }
       );
+      await wait(3000);
+      return await interaction.editReply({
+        content: `Restarted: ${name}`,
+        ephemeral: true,
+      });
     } catch (error) {
       if (interaction) {
         await interaction.editReply({
