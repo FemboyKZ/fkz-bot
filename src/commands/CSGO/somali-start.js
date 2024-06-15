@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const { exec } = require("child_process");
 const wait = require("timers/promises").setTimeout;
+require("dotenv").config();
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -19,56 +20,49 @@ module.exports = {
 
   async execute(interaction) {
     const { options } = interaction;
-    const server = options.getString("server");
+    const servers = options.getString("server");
 
-    const command = `sudo -iu ${server} /home/${server}/csgoserver start`;
+    const server = {
+      "csgo-somali-1": {
+        name: "Somali Pirates 1",
+        id: null,
+      },
+      "csgo-somali-2": {
+        name: "Somali Pirates 2",
+        id: null,
+      },
+    }[servers];
 
-    let serverName = server;
-    switch (serverName) {
-      case "csgo-somali-1":
-        serverName = "Somali Pirates 1";
-        break;
-      case "csgo-somali-2":
-        serverName = "Somali Pirates 2";
-        break;
-      default:
-        serverName = "Unknown";
-    }
+    const { name, id } = server;
 
     if (
+      //!interaction.member.permissions.has(PermissionFlagsBits.Administrator) ||
       !interaction.member.roles.cache.has(`${process.env.PIRATE_MANAGER_ROLE}`)
     ) {
       return await interaction.reply({
-        content: "You don't have permission to use this command",
+        content: "You don't have perms to use this command.",
         ephemeral: true,
       });
     }
 
     try {
       await interaction.reply({
-        content: `Starting: ${serverName}`,
+        content: `Starting: ${name}`,
         ephemeral: true,
       });
-      exec(command, async (error, stdout, stderr) => {
-        await wait(5000);
-        if (!interaction) return;
-        if (error) {
+      exec(
+        `sudo -iu ${server} /home/${server}/csgoserver start`,
+        async (error, stdout, stderr) => {
+          if (error) console.log(error);
+          //if (stderr) console.log(stderr);
+          //if (stdout) console.log(stdout);
+          await wait(3000);
           return await interaction.editReply({
-            content: `Error: ${error.message}`,
+            content: `Started: ${name}`,
             ephemeral: true,
           });
         }
-        if (stderr) {
-          return await interaction.editReply({
-            content: `Stderr: ${stderr}`,
-            ephemeral: true,
-          });
-        }
-        return await interaction.editReply({
-          content: `Started: ${serverName}`,
-          ephemeral: true,
-        });
-      });
+      );
     } catch (error) {
       if (interaction) {
         await interaction.editReply({
