@@ -26,16 +26,14 @@ module.exports = {
       "csgo-somali-1": {
         name: "Somali Pirates 1",
         user: "csgo-somali-1",
-        id: null,
       },
       "csgo-somali-2": {
         name: "Somali Pirates 2",
         user: "csgo-somali-2",
-        id: null,
       },
     }[servers];
 
-    const { name, id, user } = server;
+    const { name, user } = server;
 
     if (
       //!interaction.member.permissions.has(PermissionFlagsBits.Administrator) ||
